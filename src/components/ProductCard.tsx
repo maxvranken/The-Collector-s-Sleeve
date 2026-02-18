@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import productImage from "@/assets/product-sleeve.jpg";
+import productFront from "@/assets/product-front.jpg";
 import type { Product } from "@/data/products";
 
 interface ProductCardProps {
@@ -19,7 +19,7 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
     >
       <div className="aspect-square bg-secondary overflow-hidden">
         <img
-          src={productImage}
+          src={productFront}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />

@@ -3,7 +3,12 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { products } from "@/data/products";
-import productImage from "@/assets/product-sleeve.jpg";
+import productFront from "@/assets/product-front.jpg";
+import productBack from "@/assets/product-back.jpg";
+import productDetail1 from "@/assets/product-detail-1.jpg";
+import productDetail2 from "@/assets/product-detail-2.jpg";
+import productDetail3 from "@/assets/product-detail-3.jpg";
+import productDetail4 from "@/assets/product-detail-4.jpg";
 import { motion } from "framer-motion";
 import { Check, ShoppingCart } from "lucide-react";
 import {
@@ -35,7 +40,7 @@ const ProductDetailPage = () => {
     "@type": "Product",
     "name": product.name,
     "description": product.description,
-    "image": productImage,
+    "image": productFront,
     "offers": {
       "@type": "Offer",
       "price": product.price.replace("€", "").replace(",", "."),
@@ -71,9 +76,18 @@ const ProductDetailPage = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="bg-secondary rounded-xl overflow-hidden aspect-square"
+              className="space-y-3"
             >
-              <img src={productImage} alt={product.name} className="w-full h-full object-cover" />
+              <div className="bg-secondary rounded-xl overflow-hidden aspect-[3/4]">
+                <img src={productFront} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="grid grid-cols-4 gap-2">
+                {[productBack, productDetail1, productDetail2, productDetail3].map((img, i) => (
+                  <div key={i} className="bg-secondary rounded-lg overflow-hidden aspect-square">
+                    <img src={img} alt={`${product.name} detail ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
             <motion.div

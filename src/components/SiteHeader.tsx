@@ -10,7 +10,7 @@ const SiteHeader = () => {
       <div className="container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2">
           <ShoppingBag className="w-6 h-6 text-accent" />
-          <span className="font-serif text-xl font-bold text-foreground">StripShield</span>
+          <span className="font-serif text-xl font-bold text-foreground">The Collector's Sleeve</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

@@ -38,10 +38,10 @@ const SEOSection = () => {
               Het verschil tussen poly en mylar sleeves
             </h3>
             <p>
-              Bij <strong>comic sleeves</strong> zijn er twee hoofdtypen materiaal: polypropyleen (poly) en mylar (polyester). Polypropyleen is het populairst dankzij de uitstekende prijs-kwaliteitverhouding. Het is helder, stevig en <strong>zuurvrij</strong>, en gaat bij juiste opslag 15 tot 25 jaar mee. <strong>Comic sleeves 100 micron</strong> in polypropyleen bieden een robuuste bescherming die geschikt is voor de meeste verzamelaars.
+              Bij <strong>comic sleeves</strong> zijn er twee hoofdtypen materiaal: polypropyleen (poly) en mylar (polyester). Polypropyleen is het populairst dankzij de uitstekende prijs-kwaliteitverhouding. Het is helder, stevig en <strong>zuurvrij</strong>, en gaat bij juiste opslag 15 tot 25 jaar mee. <strong>Comic sleeves 50 micron</strong> in polypropyleen bieden een robuuste bescherming die geschikt is voor de meeste verzamelaars.
             </p>
             <p>
-              Mylar sleeves (officieel polyethyleentereftalaat of PET) zijn het premium alternatief. Ze zijn volkomen chemisch inert, gaan meer dan 50 jaar mee en worden gebruikt door musea en professionele archivisten. De prijs ligt echter twee tot drie keer hoger. Voor waardevolle key issues en sleutelnummers kan mylar een verstandige investering zijn, maar voor het gros van een collectie bieden onze premium <strong>comic sleeves 100 micron</strong> polypropyleen de ideale oplossing.
+              Mylar sleeves (officieel polyethyleentereftalaat of PET) zijn het premium alternatief. Ze zijn volkomen chemisch inert, gaan meer dan 50 jaar mee en worden gebruikt door musea en professionele archivisten. De prijs ligt echter twee tot drie keer hoger. Voor waardevolle key issues en sleutelnummers kan mylar een verstandige investering zijn, maar voor het gros van een collectie bieden onze premium <strong>comic sleeves 50 micron</strong> polypropyleen de ideale oplossing.
             </p>
 
             <h3 className="font-serif text-2xl font-semibold text-foreground !mt-10">

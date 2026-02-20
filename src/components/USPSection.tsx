@@ -5,17 +5,17 @@ const usps = [
   {
     icon: Shield,
     title: "Zuurvrije archiefkwaliteit",
-    description: "Ons polypropyleen bevat geen schadelijke zuren die uw strips aantasten."
+    description: "Ons CPP (Cast PolyPropylene) bevat geen schadelijke zuren die uw strips aantasten."
   },
   {
     icon: Eye,
     title: "Premium helder & scheurvast",
-    description: "100 micron kristalhelder materiaal dat niet scheurt of vervormt."
+    description: "50 micron kristalhelder materiaal dat niet scheurt of vervormt."
   },
   {
     icon: Layers,
-    title: "Modern, Silver & Golden Age",
-    description: "Beschikbaar in drie formaten voor elke type strip en comic."
+    title: "Standaard albumformaat (Franco-Belgisch)",
+    description: "Beschikbaar in drie formaten voor elke type strip."
   },
   {
     icon: Truck,

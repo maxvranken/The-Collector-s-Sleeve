@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X, ShoppingCart } from "lucide-react";
 import { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
 
 const SiteHeader = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { totalItems } = useCart();
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
@@ -29,15 +31,35 @@ const SiteHeader = () => {
           >
             Bestel nu
           </Link>
+          {/* Cart icon */}
+          <Link to="/winkelmandje" className="relative text-muted-foreground hover:text-foreground transition-colors" aria-label="Winkelmandje">
+            <ShoppingCart className="w-5 h-5" />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center bg-accent text-accent-foreground text-[10px] font-bold rounded-full">
+                {totalItems > 9 ? "9+" : totalItems}
+              </span>
+            )}
+          </Link>
         </nav>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-foreground"
-          aria-label="Menu"
-        >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          {/* Mobile cart icon */}
+          <Link to="/winkelmandje" className="relative text-foreground" aria-label="Winkelmandje">
+            <ShoppingCart className="w-5 h-5" />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center bg-accent text-accent-foreground text-[10px] font-bold rounded-full">
+                {totalItems > 9 ? "9+" : totalItems}
+              </span>
+            )}
+          </Link>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="p-2 text-foreground"
+            aria-label="Menu"
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (

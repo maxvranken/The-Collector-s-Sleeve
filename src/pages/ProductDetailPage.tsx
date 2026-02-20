@@ -8,9 +8,11 @@ import productBack from "@/assets/product-back.jpg";
 import productDetail1 from "@/assets/product-detail-1.jpg";
 import productDetail2 from "@/assets/product-detail-2.jpg";
 import productDetail3 from "@/assets/product-detail-3.jpg";
-import productDetail4 from "@/assets/product-detail-4.jpg";
 import { motion } from "framer-motion";
-import { Check, ShoppingCart } from "lucide-react";
+import { Check, ShoppingCart, Minus, Plus } from "lucide-react";
+import { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 import {
   Accordion,
   AccordionContent,
@@ -21,6 +23,8 @@ import {
 const ProductDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const product = products.find(p => p.slug === slug);
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
 
   if (!product) {
     return (
@@ -57,6 +61,16 @@ const ProductDetailPage = () => {
       "name": f.question,
       "acceptedAnswer": { "@type": "Answer", "text": f.answer }
     }))
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    toast.success(`${quantity}× ${product.shortName} toegevoegd aan winkelmandje`, {
+      action: {
+        label: "Bekijk mandje",
+        onClick: () => window.location.href = "/winkelmandje",
+      },
+    });
   };
 
   return (
@@ -107,11 +121,41 @@ const ProductDetailPage = () => {
               <p className="text-muted-foreground leading-relaxed mb-6">{product.longDescription}</p>
 
               <div className="bg-secondary rounded-xl p-6 mb-6">
-                <div className="flex items-end gap-2 mb-4">
+                <div className="flex items-end gap-2 mb-5">
                   <span className="text-3xl font-bold text-foreground">{product.price}</span>
                   <span className="text-muted-foreground mb-1">per 10 stuks</span>
                 </div>
-                <button className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-gold text-accent-foreground font-semibold rounded-lg shadow-gold hover:opacity-90 transition-opacity text-lg">
+
+                {/* Quantity selector */}
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-sm font-medium text-foreground">Aantal:</span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                      disabled={quantity <= 1}
+                      className="w-8 h-8 flex items-center justify-center rounded-lg border border-border bg-background hover:bg-muted transition-colors disabled:opacity-40"
+                      aria-label="Minder"
+                    >
+                      <Minus className="w-3.5 h-3.5" />
+                    </button>
+                    <span className="w-8 text-center font-semibold text-foreground">{quantity}</span>
+                    <button
+                      onClick={() => setQuantity(q => q + 1)}
+                      className="w-8 h-8 flex items-center justify-center rounded-lg border border-border bg-background hover:bg-muted transition-colors"
+                      aria-label="Meer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                  <span className="text-sm text-muted-foreground">
+                    = {quantity * 10} hoezen
+                  </span>
+                </div>
+
+                <button
+                  onClick={handleAddToCart}
+                  className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-gold text-accent-foreground font-semibold rounded-lg shadow-gold hover:opacity-90 transition-opacity text-lg"
+                >
                   <ShoppingCart className="w-5 h-5" />
                   Voeg toe aan winkelmandje
                 </button>

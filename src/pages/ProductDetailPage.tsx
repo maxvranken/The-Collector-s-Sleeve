@@ -112,9 +112,10 @@ const ProductDetailPage = () => {
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">{product.name}</h1>
 
               <div className="space-y-2 text-muted-foreground mb-6">
-                <p><strong className="text-foreground">Afmetingen:</strong> {product.dimensions}</p>
+                <p><strong className="text-foreground">Buitenafmetingen (H×B):</strong> {product.dimensions}</p>
+                <p><strong className="text-foreground">Klep:</strong> {product.klep}</p>
                 <p><strong className="text-foreground">Geschikt voor:</strong> {product.suitableFor}</p>
-                <p><strong className="text-foreground">Materiaal:</strong> Zuurvrij polypropyleen</p>
+                <p><strong className="text-foreground">Materiaal:</strong> Zuurvrij Cast polypropyleen</p>
                 <p><strong className="text-foreground">Dikte:</strong> {product.thickness}</p>
               </div>
 

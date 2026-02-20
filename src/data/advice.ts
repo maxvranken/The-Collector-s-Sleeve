@@ -14,7 +14,7 @@ export const adviceArticles: AdviceArticle[] = [
     metaTitle: "Hoe strips beschermen? | Gids voor stripverzamelaars",
     metaDescription: "Leer hoe u uw stripverzameling het beste kunt beschermen. Tips over striphoezen, opbergen, temperatuur en meer.",
     intro: "Uw stripverzameling verdient de beste bescherming. Of u nu een beginnende verzamelaar bent of een ervaren collector met honderden exemplaren: de juiste bescherming maakt het verschil tussen een collectie die decennia meegaat en strips die langzaam degraderen. In dit artikel leggen we uit hoe u uw strips optimaal beschermt met zuurvrije hoezen, backing boards en de juiste opslagomstandigheden.",
-    content: "De basis van stripbescherming begint bij individuele hoezen. Elke strip hoort in een zuurvrije hoes van minimaal 100 micron dikte. Dit beschermt tegen stof, vocht, vingerafdrukken en vergeling. Combineer dit met acid-free backing boards voor extra stevigheid."
+    content: "De basis van stripbescherming begint bij individuele hoezen. Elke strip hoort in een zuurvrije hoes van minimaal 50 micron dikte. Dit beschermt tegen stof, vocht, vingerafdrukken en vergeling. Combineer dit met acid-free backing boards voor extra stevigheid."
   },
   {
     slug: "hoe-comics-bewaren",
@@ -45,8 +45,8 @@ export const adviceArticles: AdviceArticle[] = [
     title: "Welke comic sleeves kiezen?",
     metaTitle: "Welke comic sleeves kiezen? | Keuzegids",
     metaDescription: "Welke comic sleeves zijn het beste voor uw verzameling? Vergelijk materialen, diktes en formaten in onze uitgebreide gids.",
-    intro: "De keuze voor de juiste comic sleeves kan overweldigend zijn. Poly of mylar? 50 of 100 micron? Welk formaat past bij welke comics? In deze gids helpen wij u stap voor stap de perfecte sleeve te kiezen voor uw specifieke verzameling, zodat u met vertrouwen kunt investeren in de bescherming van uw comics.",
-    content: "De belangrijkste factoren zijn materiaal (poly vs mylar), dikte (50-100 micron) en formaat (small, medium, large). Voor de meeste verzamelaars biedt 100 micron polypropyleen de beste prijs-kwaliteitverhouding."
+    intro: "De keuze voor de juiste comic sleeves kan overweldigend zijn. Poly of mylar? 50 of 50 micron? Welk formaat past bij welke comics? In deze gids helpen wij u stap voor stap de perfecte sleeve te kiezen voor uw specifieke verzameling, zodat u met vertrouwen kunt investeren in de bescherming van uw comics.",
+    content: "De belangrijkste factoren zijn materiaal (poly vs mylar), dikte (50-50 micron) en formaat (small, medium, large). Voor de meeste verzamelaars biedt 50 micron polypropyleen de beste prijs-kwaliteitverhouding."
   },
   {
     slug: "hoe-lang-gaan-comic-bags-mee",

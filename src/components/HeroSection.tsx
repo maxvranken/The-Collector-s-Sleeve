@@ -28,7 +28,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary-foreground leading-tight mb-6"
           >
-            Premium striphoezen & comic sleeves voor verzamelaars
+            Premium striphoezen voor verzamelaars
           </motion.h1>
 
           <motion.p
@@ -46,7 +46,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-lg text-primary-foreground/80 mb-10 max-w-xl leading-relaxed"
           >
-            Bescherm vandaag wat morgen waardevol blijft. Onze premium striphoezen bieden maximale bescherming tegen stof, vocht, kreuken en vergeling.
+            Bescherm vandaag wat morgen waardevol blijft. Onze premium striphoezen bieden maximale bescherming tegen stof, vocht en kreuken.
           </motion.p>
 
           <motion.div

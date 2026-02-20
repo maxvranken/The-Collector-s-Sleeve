@@ -24,7 +24,7 @@ const SiteFooter = () => {
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
               <ShoppingBag className="w-5 h-5 text-gold" />
-              <span className="font-serif text-lg font-bold">StripShield</span>
+              <span className="font-serif text-lg font-bold">The Collector's Sleeve</span>
             </Link>
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
               Premium striphoezen en comic sleeves voor serieuze verzamelaars in België en Nederland.
@@ -61,7 +61,7 @@ const SiteFooter = () => {
         </div>
 
         <div className="border-t border-primary-foreground/10 mt-10 pt-6 text-center text-sm text-primary-foreground/50">
-          © {new Date().getFullYear()} StripShield. Alle rechten voorbehouden.
+          © {new Date().getFullYear()} The Collector's Sleeve. Alle rechten voorbehouden.
         </div>
       </div>
     </footer>

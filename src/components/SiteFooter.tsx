@@ -13,9 +13,9 @@ const SiteFooter = () => {
             ))}
           </div>
           <p className="font-serif text-lg italic text-primary-foreground/90 mb-2">
-            "Eindelijk hoezen die écht archiefkwaliteit zijn. Mijn verzameling is veilig voor de toekomst."
+            "Eindelijk nog eens hoezen van echte archiefkwaliteit. Ik vond ze nergens meer."
           </p>
-          <p className="text-sm text-primary-foreground/60">— Jan V., verzamelaar sinds 1992</p>
+          <p className="text-sm text-primary-foreground/60">— Yves V.</p>
         </div>
       </div>
 

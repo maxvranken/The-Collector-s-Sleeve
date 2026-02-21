@@ -27,7 +27,7 @@ const SiteFooter = () => {
               <span className="font-serif text-lg font-bold">The Collector's Sleeve</span>
             </Link>
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
-              Premium striphoezen en comic sleeves voor serieuze verzamelaars in België en Nederland.
+              Premium striphoezen voor serieuze verzamelaars in Belgie, Nederland en Frankrijk.
             </p>
           </div>
 

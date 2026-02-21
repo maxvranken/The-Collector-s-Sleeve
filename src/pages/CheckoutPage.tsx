@@ -20,6 +20,7 @@ const schema = z.object({
   postcode: z.string().min(4, "Vul je postcode in"),
   gemeente: z.string().min(2, "Vul je gemeente in"),
   land: z.enum(["België", "Nederland"], { message: "Kies je land" }),
+  verzendwijze: z.enum(["afhaalpunt", "adres"], { message: "Kies een verzendwijze" }),
   striphoes_small_qty: z.coerce.number().min(0, "Aantal moet 0 of hoger zijn"),
   striphoes_medium_qty: z.coerce.number().min(0, "Aantal moet 0 of hoger zijn"),
   striphoes_large_qty: z.coerce.number().min(0, "Aantal moet 0 of hoger zijn"),
@@ -36,6 +37,62 @@ type FormValues = z.infer<typeof schema>;
 
 const formatPrice = (value: number) =>
   "€" + value.toFixed(2).replace(".", ",");
+
+// Shipping calculation parameters
+const SHIPPING_PARAMS = {
+  pricePerSet: 13.95,
+  weightSmall: 0.041,
+  weightMedium: 0.049,
+  weightLarge: 0.05,
+  packaging: 0.15,
+  // Belgium shipping costs
+  be5kgPickup: 7.20,
+  be10kgPickup: 7.70,
+  be20kgPickup: 10.60,
+  be5kgAddress: 9.95,
+  be10kgAddress: 10.95,
+  be20kgAddress: 13.85,
+  // Netherlands shipping costs
+  nlPickup: 10.75,
+  nlAddress: 11.05,
+};
+
+const calculateWeight = (smallQty: number, mediumQty: number, largeQty: number): number => {
+  return Math.round(
+    (smallQty * SHIPPING_PARAMS.weightSmall +
+      mediumQty * SHIPPING_PARAMS.weightMedium +
+      largeQty * SHIPPING_PARAMS.weightLarge +
+      SHIPPING_PARAMS.packaging) * 100
+  ) / 100;
+};
+
+const calculateShippingCost = (
+  weight: number,
+  country: string,
+  deliveryMethod: string
+): number => {
+  if (country === "Nederland") {
+    if (deliveryMethod === "afhaalpunt") {
+      return weight < 23 ? SHIPPING_PARAMS.nlPickup : 0;
+    } else {
+      return weight < 23 ? SHIPPING_PARAMS.nlAddress : 0;
+    }
+  }
+
+  if (country === "België") {
+    if (deliveryMethod === "afhaalpunt") {
+      if (weight <= 5) return SHIPPING_PARAMS.be5kgPickup;
+      if (weight <= 10) return SHIPPING_PARAMS.be10kgPickup;
+      return SHIPPING_PARAMS.be20kgPickup;
+    } else {
+      if (weight <= 5) return SHIPPING_PARAMS.be5kgAddress;
+      if (weight <= 10) return SHIPPING_PARAMS.be10kgAddress;
+      return SHIPPING_PARAMS.be20kgAddress;
+    }
+  }
+
+  return 0;
+};
 
 const CheckoutPage = () => {
   const { items, clearCart } = useCart();
@@ -76,16 +133,19 @@ const CheckoutPage = () => {
     resolver: zodResolver(schema),
     defaultValues: {
       land: "België",
+      verzendwijze: "afhaalpunt",
       striphoes_small_qty: cartQuantities.small,
       striphoes_medium_qty: cartQuantities.medium,
       striphoes_large_qty: cartQuantities.large,
     },
   });
 
-  // Watch quantity fields to calculate totals
+  // Watch quantity fields and delivery options to calculate totals
   const smallQty = watch("striphoes_small_qty");
   const mediumQty = watch("striphoes_medium_qty");
   const largeQty = watch("striphoes_large_qty");
+  const country = watch("land");
+  const deliveryMethod = watch("verzendwijze");
 
   const PRICE_PER_10 = 13.95;
   const smallTotal = smallQty * PRICE_PER_10;
@@ -93,7 +153,16 @@ const CheckoutPage = () => {
   const largeTotal = largeQty * PRICE_PER_10;
   const orderSubtotal = smallTotal + mediumTotal + largeTotal;
 
+  // Calculate weight and shipping
+  const totalWeight = calculateWeight(smallQty, mediumQty, largeQty);
+  const shippingCost = calculateShippingCost(totalWeight, country, deliveryMethod);
+  const orderTotal = orderSubtotal + shippingCost;
+
   const buildOrderText = (data: FormValues) => {
+    const weight = calculateWeight(data.striphoes_small_qty, data.striphoes_medium_qty, data.striphoes_large_qty);
+    const shipping = calculateShippingCost(weight, data.land, data.verzendwijze);
+    const total = (data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty) * SHIPPING_PARAMS.pricePerSet + shipping;
+
     const lines = [];
     lines.push(`KLANTGEGEVENS`);
     lines.push(`Naam: ${data.voornaam} ${data.achternaam}`);
@@ -109,16 +178,24 @@ const CheckoutPage = () => {
     lines.push("");
     lines.push(`BESTELLING`);
     if (data.striphoes_small_qty > 0) {
-      lines.push(`${data.striphoes_small_qty}× Striphoes Small (€${PRICE_PER_10}) = €${formatPrice(smallTotal)}`);
+      lines.push(`${data.striphoes_small_qty}× Striphoes Small (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_small_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     if (data.striphoes_medium_qty > 0) {
-      lines.push(`${data.striphoes_medium_qty}× Striphoes Medium (€${PRICE_PER_10}) = €${formatPrice(mediumTotal)}`);
+      lines.push(`${data.striphoes_medium_qty}× Striphoes Medium (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_medium_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     if (data.striphoes_large_qty > 0) {
-      lines.push(`${data.striphoes_large_qty}× Striphoes Large (€${PRICE_PER_10}) = €${formatPrice(largeTotal)}`);
+      lines.push(`${data.striphoes_large_qty}× Striphoes Large (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_large_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
+    lines.push("");
+    lines.push(`VERZENDING`);
+    lines.push(`Verzendwijze: ${data.verzendwijze === "afhaalpunt" ? "Afhaalpunt" : "Thuis bezorgd"}`);
+    lines.push(`Gewicht: ${weight} kg`);
+    lines.push(`Verzendkosten: €${formatPrice(shipping)}`);
+    lines.push("");
     lines.push(`─`.repeat(40));
-    lines.push(`Subtotaal: €${formatPrice(orderSubtotal)}`);
+    lines.push(`Subtotaal producten: €${formatPrice((data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty) * SHIPPING_PARAMS.pricePerSet)}`);
+    lines.push(`Verzendkosten: €${formatPrice(shipping)}`);
+    lines.push(`Totaal: €${formatPrice(total)}`);
     lines.push("");
     if (data.opmerkingen) {
       lines.push(`OPMERKINGEN`);
@@ -395,7 +472,7 @@ const CheckoutPage = () => {
                   </div>
 
                   {/* Land */}
-                  <div>
+                  <div className="mb-4">
                     <label className="block text-sm font-medium text-foreground mb-1">
                       Land
                     </label>
@@ -408,6 +485,36 @@ const CheckoutPage = () => {
                     </select>
                     {errors.land && (
                       <p className="text-destructive text-xs mt-1">{errors.land.message}</p>
+                    )}
+                  </div>
+
+                  {/* Verzendwijze */}
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-3">
+                      Verzendwijze
+                    </label>
+                    <div className="space-y-2">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          value="afhaalpunt"
+                          {...register("verzendwijze")}
+                          className="w-4 h-4 rounded-full border border-border text-accent focus:ring-2 focus:ring-accent cursor-pointer"
+                        />
+                        <span className="text-sm text-foreground">Afhaalpunt</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          value="adres"
+                          {...register("verzendwijze")}
+                          className="w-4 h-4 rounded-full border border-border text-accent focus:ring-2 focus:ring-accent cursor-pointer"
+                        />
+                        <span className="text-sm text-foreground">Thuis bezorgd</span>
+                      </label>
+                    </div>
+                    {errors.verzendwijze && (
+                      <p className="text-destructive text-xs mt-1">{errors.verzendwijze.message}</p>
                     )}
                   </div>
                 </div>
@@ -488,11 +595,21 @@ const CheckoutPage = () => {
                       )}
                     </div>
 
-                    {/* Order Total */}
+                    {/* Order Totals */}
                     {orderSubtotal > 0 && (
-                      <div className="p-4 bg-background border border-border rounded-lg flex justify-between">
-                        <span className="font-semibold text-foreground">Totaal (excl. verzendkosten)</span>
-                        <span className="font-semibold text-foreground">{formatPrice(orderSubtotal)}</span>
+                      <div className="p-4 bg-background border border-border rounded-lg space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Producten</span>
+                          <span className="text-foreground">{formatPrice(orderSubtotal)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Gewicht: {totalWeight} kg</span>
+                          <span className="text-foreground">{formatPrice(shippingCost)}</span>
+                        </div>
+                        <div className="border-t border-border pt-2 flex justify-between">
+                          <span className="font-semibold text-foreground">Totaal</span>
+                          <span className="font-semibold text-foreground text-lg">{formatPrice(orderTotal)}</span>
+                        </div>
                       </div>
                     )}
                   </div>

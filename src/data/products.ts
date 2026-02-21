@@ -45,16 +45,8 @@ export const products: Product[] = [
         answer: "De Small hoezen (295×230mm) zijn ideaal voor standaard Belgische en Europese strips zoals Suske en Wiske, Asterix, Lucky Luke, en vergelijkbare formaten."
       },
       {
-        question: "Wat betekent 'zuurvrij' precies?",
-        answer: "Zuurvrij betekent dat het materiaal geen zuren bevat die het papier van uw strips kunnen aantasten. Dit voorkomt vergeling en broosheid op lange termijn, essentieel voor het behoud van waarde."
-      },
-      {
         question: "Hoeveel hoezen zitten er in een verpakking?",
-        answer: "De prijs is per 10 stuks. Grotere hoeveelheden zijn beschikbaar met volumekorting."
-      },
-      {
-        question: "Hoe lang gaan deze hoezen mee?",
-        answer: "Bij normaal gebruik en opslag gaan onze Cast polypropyleen hoezen tientallen jaren mee zonder te vergelen of bros te worden."
+        answer: "De prijs is per 10 stuks."
       }
     ]
   },

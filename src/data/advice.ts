@@ -25,6 +25,14 @@ export const adviceArticles: AdviceArticle[] = [
     content: "Voorkom vergeling door strips uit direct zonlicht te houden, zuurvrije hoezen te gebruiken en de luchtvochtigheid laag te houden. UV-beschermende hoezen bieden extra veiligheid."
   },
   {
+    slug: "zuurvrije-hoezen-vergeling",
+    title: "Kies voor zuurvrije, archiefwaardige hoezen",
+    metaTitle: "Vergeling voorkomen: gids voor archiefwaardige bescherming",
+    metaDescription: "Praktische gids om vergeling van strips te voorkomen. Tips over materialen, UV-licht, luchtvochtigheid, temperatuur en opbergomgeving.",
+    intro: "De basis van elke goede bescherming is de juiste hoes. Vergeling ontstaat door een samenspel van factoren: zuurstof, UV-licht, vocht en temperatuur. Gelukkig kun je dit proces aanzienlijk vertragen door de juiste keuzes te maken. In deze praktische gids leggen we uit welke stappen het verschil maken.",
+    content: "1. Gebruik polypropyleen (CPP): pH-neutraal, helder en volledig vrij van weekmakers. Vermijd PVC: dit materiaal geeft chloorverbindingen af die papier versneld doen vergelen. Een dikkere hoes (50 micron) biedt extra stabiliteit en sluit beter af tegen zuurstof.\n\n2. Bescherm tegen UV-licht: UV-straling is één van de grootste versnellers van vergeling. Bewaar strips nooit in direct zonlicht. Ook daglicht en TL-lampen bevatten UV.\n\n3. Beperk blootstelling aan zuurstof: Oxidatie is een chemisch proces dat papier langzaam doet verkleuren. Een hoes die goed afsluit vertraagt dit proces aanzienlijk.\n\n4. Houd luchtvochtigheid onder controle: Papier reageert sterk op vocht. Ideale luchtvochtigheid: 40–55%. Te vochtig = risico op schimmel en snellere veroudering. Te droog = bros papier en verhoogde kans op schade.\n\n5. Bewaar koel en stabiel: Temperatuurschommelingen zijn schadelijker dan een iets hogere temperatuur. Ideaal: 18–21°C. Vermijd zolders, garages en ruimtes met sterke temperatuursprongen.\n\n6. Vermijd contact met zure materialen: Veel materialen geven na verloop van tijd zuren af. Gebruik geen oude kartonnen dozen, krantenpapier of houten kasten zonder bescherming. Kies voor archiefwaardige opbergdozen of zuurvrije tussenbladen.\n\n7. Bewaar strips rechtop, niet te strak: Te veel druk kan microbeschadigingen veroorzaken die sneller verkleuren. Zorg dat strips rechtop staan met lichte ondersteuning, niet geperst.\n\n8. Let op omgevingsfactoren die vaak vergeten worden: Rook, geurkaarsen, kookdampen bevatten vluchtige stoffen die papier aantasten. Goedkope backing boards kunnen na enkele jaren zelf zuren afgeven. Stof en fijn vuil kunnen zich in papiervezels nestelen en verkleuring versnellen."
+  },
+  {
     slug: "verschil-poly-mylar-sleeves",
     title: "Verschil tussen poly en mylar sleeves",
     metaTitle: "Verschil poly vs mylar sleeves | Vergelijking",

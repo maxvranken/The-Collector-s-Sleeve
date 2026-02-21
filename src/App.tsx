@@ -11,6 +11,7 @@ import AdviceDetailPage from "./pages/AdviceDetailPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
 
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/winkelmandje" element={<CartPage />} />
             <Route path="/bestellen" element={<CheckoutPage />} />
             <Route path="/algemene-voorwaarden" element={<TermsPage />} />
+            <Route path="/privacybeleid" element={<PrivacyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

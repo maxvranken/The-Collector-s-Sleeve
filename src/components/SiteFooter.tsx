@@ -45,6 +45,7 @@ const SiteFooter = () => {
             <nav className="space-y-2 text-sm text-primary-foreground/70">
               <Link to="/advies/zuurvrije-archiefwaardige-hoezen" className="block hover:text-primary-foreground transition-colors">Zuurvrij</Link>
               <Link to="/advies/bescherm-tegen-uv-licht" className="block hover:text-primary-foreground transition-colors">Bescherm tegen UV-licht</Link>
+              <Link to="/advies/beperk-blootstelling-zuurstof" className="block hover:text-primary-foreground transition-colors">Beperk zuurstof</Link>
             </nav>
           </div>
 

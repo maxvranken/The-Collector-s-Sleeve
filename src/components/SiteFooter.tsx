@@ -54,7 +54,7 @@ const SiteFooter = () => {
             <nav className="space-y-2 text-sm text-primary-foreground/70">
               <span className="block">Levering: België & Nederland</span>
               <span className="block">Privacy</span>
-              <span className="block">Algemene voorwaarden</span>
+              <Link to="/algemene-voorwaarden" className="block hover:text-primary-foreground transition-colors">Algemene voorwaarden</Link>
               <span className="block">Contact</span>
             </nav>
           </div>

@@ -15,10 +15,10 @@ const AdviceSection = () => {
           className="text-center mb-14"
         >
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Advies & Kennisbank
+            Hoe bescherm je je strips?
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Alles wat u moet weten over het beschermen, bewaren en onderhouden van uw stripverzameling.
+            Vergeling is één van de grootste vijanden van elke stripverzamelaar. Het is een onomkeerbaar proces waarbij papier donkerder wordt door oxidatie en UV‑licht. Gelukkig kun je het sterk vertragen — op voorwaarde dat je de juiste materialen en bewaartechnieken gebruikt.
           </p>
         </motion.div>
 

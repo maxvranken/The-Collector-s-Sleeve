@@ -52,7 +52,7 @@ const SiteFooter = () => {
           <div>
             <h4 className="font-serif font-semibold mb-4">Informatie</h4>
             <nav className="space-y-2 text-sm text-primary-foreground/70">
-              <span className="block">Levering: België & Nederland</span>
+              <Link to="/levering" className="block hover:text-primary-foreground transition-colors">Levering: België & Nederland</Link>
               <Link to="/privacybeleid" className="block hover:text-primary-foreground transition-colors">Privacy</Link>
               <Link to="/algemene-voorwaarden" className="block hover:text-primary-foreground transition-colors">Algemene voorwaarden</Link>
               <span className="block">Contact</span>

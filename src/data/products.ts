@@ -93,16 +93,16 @@ export const products: Product[] = [
     shortName: "Large",
     dimensions: "330 × 258 mm",
     klep: "40 mm",
-    suitableFor: "Silver & Golden Age strips",
+    suitableFor: "Hardcover strips van de jaren '40 en '50",
     thickness: "50 micron",
     price: "€13,95",
     description: "Speciaal voor waardevolle Silver & Golden Age strips. Zuurvrij Cast polypropyleen van 50 micron voor maximale bescherming van uw kostbare exemplaren.",
     metaTitle: "Premium Striphoezen Large – Zuurvrij | 330×258mm",
     metaDescription: "Premium zuurvrije striphoezen large (330×258mm) voor Silver & Golden Age strips. 50 micron Cast polypropyleen, archiefkwaliteit bescherming. Bestel nu online.",
-    longDescription: "De Premium Hoes Large is speciaal ontworpen voor het beschermen van grotere en vaak waardevolle Silver Age en Golden Age strips. Met buitenafmetingen van 330 × 258 mm en een klep van 40 mm past deze hoes perfect om de iets grotere formaten uit de jaren '40 tot '70. Juist voor deze waardevolle exemplaren is optimale bescherming essentieel. Ons 50 micron zuurvrij Cast polypropyleen biedt de hoogste graad van bescherming tegen alle vormen van degradatie.",
+    longDescription: "De Premium Hoes Large is speciaal ontworpen voor het beschermen van grotere en vaak waardevolle hardcover strips zoals HC van Casterman. Met afmetingen van 330 × 258 mm past deze hoes perfect om de iets grotere formaten uit de jaren '40 tot '70. Juist voor deze waardevolle exemplaren is optimale bescherming essentieel. Ons 50 micron zuurvrij polypropyleen biedt de hoogste graad van bescherming tegen alle vormen van degradatie.",
     benefits: [
-      "Speciaal ontworpen voor Silver & Golden Age formaten",
-      "50 micron premium zuurvrij Cast polypropyleen",
+      "Speciaal ontworpen voor Europese hardcover formaten",
+      "50 micron premium zuurvrij polypropyleen",
       "Maximale bescherming voor waardevolle exemplaren",
       "Voorkomt vergeling en broosheid",
       "Kristalhelder voor optimale presentatie",
@@ -110,16 +110,12 @@ export const products: Product[] = [
     ],
     faq: [
       {
-        question: "Waarom zijn Silver & Golden Age strips groter?",
-        answer: "Strips uit de Golden Age (1938-1956) en Silver Age (1956-1970) werden op een groter formaat gedrukt dan moderne strips. Onze Large hoezen zijn specifiek afgestemd op deze afmetingen."
-      },
-      {
         question: "Zijn deze hoezen geschikt voor waardevolle sleutelnummers?",
-        answer: "Absoluut. Onze Large hoezen bieden archiefkwaliteit bescherming die ideaal is voor waardevolle sleutelnummers. Het zuurvrije materiaal voorkomt degradatie en helpt de waarde van uw strips te behouden."
+        answer: "Absoluut. Onze Large hoezen bieden archiefkwaliteit bescherming die ideaal is voor waardevolle stripverhalen. Het zuurvrije materiaal voorkomt degradatie en helpt de waarde van uw strips te behouden."
       },
       {
         question: "Wat is het verschil tussen poly en mylar?",
-        answer: "Cast polypropyleen (poly) biedt uitstekende bescherming tegen een zeer scherpe prijs. Mylar (polyester) is nog duurzamer maar aanzienlijk duurder. Voor de meeste verzamelaars biedt onze 50 micron Cast poly de ideale balans tussen kwaliteit en prijs."
+        answer: "Cast Polypropyleen (CPP) biedt uitstekende bescherming tegen een zeer scherpe prijs. Mylar (polyester) is nog duurzamer maar aanzienlijk duurder. Voor de meeste verzamelaars biedt onze 50 micron CPP de ideale balans tussen kwaliteit en prijs."
       },
       {
         question: "Hoe bewaar ik mijn strips het beste?",

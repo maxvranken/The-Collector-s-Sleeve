@@ -57,33 +57,28 @@ export const products: Product[] = [
     shortName: "Medium",
     dimensions: "315 × 240 mm",
     klep: "40 mm",
-    suitableFor: "Modern Age strips",
+    suitableFor: "Standaard softcovers",
     thickness: "50 micron",
     price: "€13,95",
     description: "Ontworpen voor Modern Age strips. Zuurvrij Cast polypropyleen van 50 micron voor optimale bescherming van uw collectie.",
     metaTitle: "Premium Striphoezen Medium – Zuurvrij | 315×240mm",
     metaDescription: "Premium zuurvrije striphoezen medium (315×240mm) voor Modern Age strips. 50 micron Cast polypropyleen, archiefkwaliteit. Bestel online met snelle levering.",
-    longDescription: "De Premium Hoes Medium is de perfecte keuze voor het beschermen van Modern Age strips. Met buitenafmetingen van 315 × 240 mm en een klep van 40 mm biedt deze hoes ruimte voor de standaard formaten van hedendaagse strips. Het hoogwaardige zuurvrije Cast polypropyleen van 50 micron zorgt voor kristalheldere bescherming zonder dat de covers verborgen worden. Ideaal voor zowel het opbergen als het presenteren van uw collectie.",
+    longDescription: "De Premium Hoes Medium is de perfecte keuze voor het beschermen van de softcover strips maar ook HC Lombard. Met afmetingen van 315 × 240 mm biedt deze hoes ruimte voor de standaard formaten van oude en nieuwe strips. Het hoogwaardige zuurvrije cast polypropyleen van 50 micron zorgt voor kristalheldere bescherming zonder dat de covers verborgen worden. Ideaal voor zowel het opbergen als het presenteren van uw collectie.",
     benefits: [
-      "Ideaal formaat voor Modern Age strips",
-      "50 micron zuurvrij Cast polypropyleen",
+      "Ideaal formaat voor softcovers",
+      "50 micron zuurvrij polypropyleen",
       "Perfecte pasvorm zonder overtollige ruimte",
-      "UV-bestendig materiaal",
       "Gemakkelijk in te schuiven dankzij gladde afwerking",
       "Professionele archiefkwaliteit"
     ],
     faq: [
       {
-        question: "Wat zijn Modern Age strips?",
-        answer: "Modern Age strips zijn uitgegeven vanaf circa 1985 tot heden. Ze hebben doorgaans een standaard formaat dat perfect past in onze Medium hoezen."
-      },
-      {
-        question: "Kan ik deze hoezen ook gebruiken met boards?",
-        answer: "Ja, onze Medium hoezen zijn ruim genoeg om samen met een backing board gebruikt te worden voor extra stevigheid en bescherming."
+        question: "Voor welke strips zijn deze hoezen geschikt?",
+        answer: "De Medium hoezen (315×240mm) zijn ideaal voor standaard Belgische en Europese softcovers zoals Buck Danny, Lucky Luke, Beverpatroelje, Michel Vaillant, en vergelijkbare formaten."
       },
       {
         question: "Wat is het verschil met de Small hoezen?",
-        answer: "De Medium hoezen zijn iets groter (315×240mm vs 295×230mm) en zijn specifiek ontworpen voor het standaard formaat van Modern Age strips, terwijl de Small hoezen beter passen bij Europese stripformaten."
+        answer: "De Medium hoezen zijn iets groter (315×240mm vs 295×230mm) en zijn ontworpen voor het standaard formaat van Europese softcovers, terwijl de Small hoezen beter passen voor bijvoorbeeld de oudere Suske en Wiske strips."
       },
       {
         question: "Zijn deze hoezen herbruikbaar?",

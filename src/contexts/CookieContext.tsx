@@ -111,10 +111,6 @@ export const CookieProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setShowBanner(false);
   };
 
-  if (!isLoaded) {
-    return <>{children}</>;
-  }
-
   return (
     <CookieContext.Provider
       value={{

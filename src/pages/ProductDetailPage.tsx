@@ -206,12 +206,6 @@ const ProductDetailPage = () => {
                   {p.name}
                 </Link>
               ))}
-              <Link
-                to="/advies/welke-comic-sleeves-kiezen"
-                className="px-4 py-2 bg-secondary rounded-lg text-sm font-medium text-accent hover:bg-accent/10 transition-colors"
-              >
-                Welke sleeve kiezen? →
-              </Link>
             </div>
           </div>
         </div>

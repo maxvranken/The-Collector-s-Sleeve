@@ -10,7 +10,7 @@ import productDetail2 from "@/assets/product-detail-2.jpg";
 import productDetail3 from "@/assets/product-detail-3.jpg";
 import { motion } from "framer-motion";
 import { Check, ShoppingCart, Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import {
@@ -25,6 +25,11 @@ const ProductDetailPage = () => {
   const product = products.find(p => p.slug === slug);
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+
+  // Scroll to top when product changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (!product) {
     return (

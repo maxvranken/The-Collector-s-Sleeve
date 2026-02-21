@@ -43,9 +43,8 @@ const SiteFooter = () => {
           <div>
             <h4 className="font-serif font-semibold mb-4">Advies</h4>
             <nav className="space-y-2 text-sm text-primary-foreground/70">
-              <Link to="/advies/hoe-strips-beschermen" className="block hover:text-primary-foreground transition-colors">Hoe strips beschermen</Link>
-              <Link to="/advies/hoe-comics-bewaren" className="block hover:text-primary-foreground transition-colors">Hoe comics bewaren</Link>
-              <Link to="/advies/verschil-poly-mylar-sleeves" className="block hover:text-primary-foreground transition-colors">Poly vs Mylar</Link>
+              <Link to="/advies/zuurvrije-archiefwaardige-hoezen" className="block hover:text-primary-foreground transition-colors">Zuurvrij</Link>
+              <Link to="/advies/bescherm-tegen-uv-licht" className="block hover:text-primary-foreground transition-colors">Bescherm tegen UV-licht</Link>
             </nav>
           </div>
 

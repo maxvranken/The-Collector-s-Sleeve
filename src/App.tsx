@@ -10,6 +10,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import AdviceDetailPage from "./pages/AdviceDetailPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import TermsPage from "./pages/TermsPage";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
 
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/advies/:slug" element={<AdviceDetailPage />} />
             <Route path="/winkelmandje" element={<CartPage />} />
             <Route path="/bestellen" element={<CheckoutPage />} />
+            <Route path="/algemene-voorwaarden" element={<TermsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -13,6 +13,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import TermsPage from "./pages/TermsPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import ShippingPage from "./pages/ShippingPage";
+import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
 import { CookieProvider } from "./contexts/CookieContext";
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="/advies/:slug" element={<AdviceDetailPage />} />
               <Route path="/winkelmandje" element={<CartPage />} />
               <Route path="/bestellen" element={<CheckoutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
               <Route path="/algemene-voorwaarden" element={<TermsPage />} />
               <Route path="/privacybeleid" element={<PrivacyPage />} />
               <Route path="/levering" element={<ShippingPage />} />

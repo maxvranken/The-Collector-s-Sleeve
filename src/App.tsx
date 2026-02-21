@@ -15,6 +15,9 @@ import PrivacyPage from "./pages/PrivacyPage";
 import ShippingPage from "./pages/ShippingPage";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
+import { CookieProvider } from "./contexts/CookieContext";
+import { CookieConsentBanner } from "./components/CookieConsentBanner";
+import { CookiePreferencesModal } from "./components/CookiePreferencesModal";
 
 const queryClient = new QueryClient();
 
@@ -34,23 +37,27 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <CartProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/striphoezen" element={<StripHoezenPage />} />
-            <Route path="/striphoezen/:slug" element={<ProductDetailPage />} />
-            <Route path="/advies/:slug" element={<AdviceDetailPage />} />
-            <Route path="/winkelmandje" element={<CartPage />} />
-            <Route path="/bestellen" element={<CheckoutPage />} />
-            <Route path="/algemene-voorwaarden" element={<TermsPage />} />
-            <Route path="/privacybeleid" element={<PrivacyPage />} />
-            <Route path="/levering" element={<ShippingPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </CartProvider>
+      <CookieProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/striphoezen" element={<StripHoezenPage />} />
+              <Route path="/striphoezen/:slug" element={<ProductDetailPage />} />
+              <Route path="/advies/:slug" element={<AdviceDetailPage />} />
+              <Route path="/winkelmandje" element={<CartPage />} />
+              <Route path="/bestellen" element={<CheckoutPage />} />
+              <Route path="/algemene-voorwaarden" element={<TermsPage />} />
+              <Route path="/privacybeleid" element={<PrivacyPage />} />
+              <Route path="/levering" element={<ShippingPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <CookieConsentBanner />
+            <CookiePreferencesModal />
+          </BrowserRouter>
+        </CartProvider>
+      </CookieProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

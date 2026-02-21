@@ -12,6 +12,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import TermsPage from "./pages/TermsPage";
 import PrivacyPage from "./pages/PrivacyPage";
+import ShippingPage from "./pages/ShippingPage";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
 
@@ -45,6 +46,7 @@ const App = () => (
             <Route path="/bestellen" element={<CheckoutPage />} />
             <Route path="/algemene-voorwaarden" element={<TermsPage />} />
             <Route path="/privacybeleid" element={<PrivacyPage />} />
+            <Route path="/levering" element={<ShippingPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

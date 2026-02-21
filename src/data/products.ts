@@ -30,10 +30,10 @@ export const products: Product[] = [
     description: "De ideale bescherming voor Belgische en Europese stripformaten. Zuurvrij Cast polypropyleen van 50 micron voor kristalheldere bescherming.",
     metaTitle: "Premium Striphoezen Small – Zuurvrij | 295×230mm",
     metaDescription: "Koop premium zuurvrije striphoezen small (295×230mm) voor Belgische en Europese strips. 50 micron Cast polypropyleen, kristalhelder, archiefkwaliteit. Snelle levering in BE & NL.",
-    longDescription: "Onze Premium Hoes Small is speciaal ontworpen voor het beschermen van Belgische en Europese stripformaten. Met buitenafmetingen van 295 × 230 mm en een klep van 40 mm past deze hoes perfect om populaire reeksen zoals Suske en Wiske, Asterix, Kuifje en Lucky Luke. Het zuurvrije Cast polypropyleen van 50 micron dikte biedt kristalheldere zichtbaarheid terwijl het uw strips beschermt tegen stof, vocht en vingerafdrukken. Deze hoezen zijn ontworpen voor langdurig gebruik en behouden hun helderheid jarenlang.",
+    longDescription: "Onze Premium Hoes Small is speciaal ontworpen voor het beschermen van Belgische en Europese stripformaten. Met afmetingen van 295 × 230 mm past deze hoes perfect om populaire reeksen zoals Suske en Wiske, Piet Pienter en Bert Bibber en Kiekeboe. Het zuurvrije polypropyleen van 50 micron dikte biedt kristalheldere zichtbaarheid terwijl het uw strips beschermt tegen stof, vocht, vingerafdrukken en vergeling. Deze hoezen zijn ontworpen voor langdurig gebruik en behouden hun helderheid jarenlang.",
     benefits: [
       "Perfect passend voor Belgische en Europese stripformaten",
-      "50 micron zuurvrij Cast polypropyleen",
+      "50 micron zuurvrij polypropyleen",
       "Kristalhelder – uw covers blijven zichtbaar",
       "Beschermt tegen stof, vocht en vergeling",
       "Scheurvast en duurzaam materiaal",

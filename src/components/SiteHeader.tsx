@@ -19,11 +19,8 @@ const SiteHeader = () => {
           <Link to="/striphoezen" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Striphoezen
           </Link>
-          <Link to="/advies/hoe-strips-beschermen" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+          <a href="/#advice" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Advies
-          </Link>
-          <a href="#producten" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Producten
           </a>
           <Link
             to="/striphoezen"
@@ -67,9 +64,9 @@ const SiteHeader = () => {
           <Link to="/striphoezen" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground">
             Striphoezen
           </Link>
-          <Link to="/advies/hoe-strips-beschermen" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground">
+          <a href="/#advice" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground">
             Advies
-          </Link>
+          </a>
           <Link
             to="/striphoezen"
             onClick={() => setMobileOpen(false)}

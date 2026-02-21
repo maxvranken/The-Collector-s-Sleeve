@@ -5,7 +5,7 @@ import { adviceArticles } from "@/data/advice";
 
 const AdviceSection = () => {
   return (
-    <section className="py-20 bg-background">
+    <section id="advice" className="py-20 bg-background">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

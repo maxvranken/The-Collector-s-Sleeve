@@ -55,7 +55,7 @@ const SiteFooter = () => {
               <Link to="/levering" className="block hover:text-primary-foreground transition-colors">Levering: België & Nederland</Link>
               <Link to="/privacybeleid" className="block hover:text-primary-foreground transition-colors">Privacy</Link>
               <Link to="/algemene-voorwaarden" className="block hover:text-primary-foreground transition-colors">Algemene voorwaarden</Link>
-              <span className="block">Contact</span>
+              <Link to="/contact" className="block hover:text-primary-foreground transition-colors">Contact</Link>
             </nav>
           </div>
         </div>

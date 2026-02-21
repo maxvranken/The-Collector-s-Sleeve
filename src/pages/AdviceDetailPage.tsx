@@ -5,10 +5,16 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { adviceArticles } from "@/data/advice";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useEffect } from "react";
 
 const AdviceDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = adviceArticles.find(a => a.slug === slug);
+
+  // Scroll to top when article changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (!article) {
     return (

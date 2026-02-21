@@ -44,6 +44,23 @@ const CheckoutPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  // Calculate quantities from cart items
+  const cartQuantities = {
+    small: 0,
+    medium: 0,
+    large: 0,
+  };
+
+  items.forEach(({ product, quantity }) => {
+    if (product.slug.includes("small")) {
+      cartQuantities.small = quantity;
+    } else if (product.slug.includes("medium")) {
+      cartQuantities.medium = quantity;
+    } else if (product.slug.includes("large")) {
+      cartQuantities.large = quantity;
+    }
+  });
+
   useEffect(() => {
     if (items.length === 0 && !submitted) {
       navigate("/winkelmandje");
@@ -59,9 +76,9 @@ const CheckoutPage = () => {
     resolver: zodResolver(schema),
     defaultValues: {
       land: "België",
-      striphoes_small_qty: 0,
-      striphoes_medium_qty: 0,
-      striphoes_large_qty: 0,
+      striphoes_small_qty: cartQuantities.small,
+      striphoes_medium_qty: cartQuantities.medium,
+      striphoes_large_qty: cartQuantities.large,
     },
   });
 

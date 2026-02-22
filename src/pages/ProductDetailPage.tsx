@@ -81,7 +81,7 @@ const ProductDetailPage = () => {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      {product.faq.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <SiteHeader />
       <main className="bg-background">
         <div className="container py-8">
@@ -180,23 +180,25 @@ const ProductDetailPage = () => {
           </div>
 
           {/* FAQ */}
-          <div className="max-w-3xl mx-auto mt-16 mb-12">
-            <h2 className="font-serif text-2xl font-bold text-foreground mb-6 text-center">
-              Veelgestelde vragen
-            </h2>
-            <Accordion type="single" collapsible className="w-full">
-              {product.faq.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`}>
-                  <AccordionTrigger className="text-left font-medium text-foreground">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
+          {product.faq.length > 0 && (
+            <div className="max-w-3xl mx-auto mt-16 mb-12">
+              <h2 className="font-serif text-2xl font-bold text-foreground mb-6 text-center">
+                Veelgestelde vragen
+              </h2>
+              <Accordion type="single" collapsible className="w-full">
+                {product.faq.map((faq, i) => (
+                  <AccordionItem key={i} value={`faq-${i}`}>
+                    <AccordionTrigger className="text-left font-medium text-foreground">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          )}
 
           {/* Cross-sell */}
           <div className="border-t border-border pt-12 pb-8">

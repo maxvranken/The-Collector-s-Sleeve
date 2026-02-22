@@ -21,9 +21,11 @@ const schema = z.object({
   gemeente: z.string().min(2, "Vul je gemeente in"),
   land: z.enum(["België", "Nederland"], { message: "Kies je land" }),
   verzendwijze: z.enum(["afhaalpunt", "adres"], { message: "Kies een verzendwijze" }),
+  afhaalpunt_naam_adres: z.string().optional(),
   striphoes_small_qty: z.coerce.number().min(0, "Aantal moet 0 of hoger zijn"),
   striphoes_medium_qty: z.coerce.number().min(0, "Aantal moet 0 of hoger zijn"),
   striphoes_large_qty: z.coerce.number().min(0, "Aantal moet 0 of hoger zijn"),
+  striphoes_testpakket_qty: z.coerce.number().min(0, "Aantal moet 0 of hoger zijn"),
   opmerkingen: z.string().optional(),
   terms_accepted: z.boolean().refine(val => val === true, {
     message: "Je moet akkoord gaan met de algemene voorwaarden en het privacybeleid"
@@ -31,6 +33,14 @@ const schema = z.object({
   payment_method_understood: z.boolean().refine(val => val === true, {
     message: "Je moet begrijpen dat betaling via overschrijving gebeurt"
   }),
+}).superRefine((data, ctx) => {
+  if (data.verzendwijze === "afhaalpunt" && (!data.afhaalpunt_naam_adres || data.afhaalpunt_naam_adres.trim().length < 5)) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["afhaalpunt_naam_adres"],
+      message: "Vul de naam en het adres van je afhaalpunt in",
+    });
+  }
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -41,9 +51,9 @@ const formatPrice = (value: number) =>
 // Shipping calculation parameters
 const SHIPPING_PARAMS = {
   pricePerSet: 13.95,
-  weightSmall: 0.041,
-  weightMedium: 0.049,
-  weightLarge: 0.05,
+  weightSmall: 0.41,
+  weightMedium: 0.49,
+  weightLarge: 0.5,
   packaging: 0.15,
   // Belgium shipping costs
   be5kgPickup: 7.20,
@@ -106,10 +116,13 @@ const CheckoutPage = () => {
     small: 0,
     medium: 0,
     large: 0,
+    testpakket: 0,
   };
 
   items.forEach(({ product, quantity }) => {
-    if (product.slug.includes("small")) {
+    if (product.slug.includes("testpakket")) {
+      cartQuantities.testpakket = quantity;
+    } else if (product.slug.includes("small")) {
       cartQuantities.small = quantity;
     } else if (product.slug.includes("medium")) {
       cartQuantities.medium = quantity;
@@ -137,6 +150,7 @@ const CheckoutPage = () => {
       striphoes_small_qty: cartQuantities.small,
       striphoes_medium_qty: cartQuantities.medium,
       striphoes_large_qty: cartQuantities.large,
+      striphoes_testpakket_qty: cartQuantities.testpakket,
     },
   });
 
@@ -144,6 +158,7 @@ const CheckoutPage = () => {
   const smallQty = watch("striphoes_small_qty");
   const mediumQty = watch("striphoes_medium_qty");
   const largeQty = watch("striphoes_large_qty");
+  const testpakketQty = watch("striphoes_testpakket_qty");
   const country = watch("land");
   const deliveryMethod = watch("verzendwijze");
 
@@ -151,17 +166,18 @@ const CheckoutPage = () => {
   const smallTotal = smallQty * PRICE_PER_10;
   const mediumTotal = mediumQty * PRICE_PER_10;
   const largeTotal = largeQty * PRICE_PER_10;
-  const orderSubtotal = smallTotal + mediumTotal + largeTotal;
+  const testpakketTotal = testpakketQty * PRICE_PER_10;
+  const orderSubtotal = smallTotal + mediumTotal + largeTotal + testpakketTotal;
 
-  // Calculate weight and shipping
-  const totalWeight = calculateWeight(smallQty, mediumQty, largeQty);
+  // Calculate weight and shipping — testpakket uses large weight parameter
+  const totalWeight = calculateWeight(smallQty, mediumQty, largeQty + testpakketQty);
   const shippingCost = calculateShippingCost(totalWeight, country, deliveryMethod);
   const orderTotal = orderSubtotal + shippingCost;
 
   const buildOrderText = (data: FormValues) => {
-    const weight = calculateWeight(data.striphoes_small_qty, data.striphoes_medium_qty, data.striphoes_large_qty);
+    const weight = calculateWeight(data.striphoes_small_qty, data.striphoes_medium_qty, data.striphoes_large_qty + data.striphoes_testpakket_qty);
     const shipping = calculateShippingCost(weight, data.land, data.verzendwijze);
-    const total = (data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty) * SHIPPING_PARAMS.pricePerSet + shipping;
+    const total = (data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty + data.striphoes_testpakket_qty) * SHIPPING_PARAMS.pricePerSet + shipping;
 
     const lines = [];
     lines.push(`KLANTGEGEVENS`);
@@ -186,14 +202,20 @@ const CheckoutPage = () => {
     if (data.striphoes_large_qty > 0) {
       lines.push(`${data.striphoes_large_qty}× Striphoes Large (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_large_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
+    if (data.striphoes_testpakket_qty > 0) {
+      lines.push(`${data.striphoes_testpakket_qty}× Testpakket Small-Medium-Large (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_testpakket_qty * SHIPPING_PARAMS.pricePerSet)}`);
+    }
     lines.push("");
     lines.push(`VERZENDING`);
     lines.push(`Verzendwijze: ${data.verzendwijze === "afhaalpunt" ? "Afhaalpunt" : "Thuis bezorgd"}`);
+    if (data.verzendwijze === "afhaalpunt" && data.afhaalpunt_naam_adres) {
+      lines.push(`Afhaalpunt: ${data.afhaalpunt_naam_adres}`);
+    }
     lines.push(`Gewicht: ${weight} kg`);
     lines.push(`Verzendkosten: €${formatPrice(shipping)}`);
     lines.push("");
     lines.push(`─`.repeat(40));
-    lines.push(`Subtotaal producten: €${formatPrice((data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty) * SHIPPING_PARAMS.pricePerSet)}`);
+    lines.push(`Subtotaal producten: €${formatPrice((data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty + data.striphoes_testpakket_qty) * SHIPPING_PARAMS.pricePerSet)}`);
     lines.push(`Verzendkosten: €${formatPrice(shipping)}`);
     lines.push(`Totaal: €${formatPrice(total)}`);
     lines.push("");
@@ -310,6 +332,10 @@ const CheckoutPage = () => {
                   </div>
                   <div className="flex justify-between">
                     <span>Striphoes Large (10 stuks)</span>
+                    <span className="font-semibold text-foreground">€13,95</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Testpakket Small-Medium-Large (10 stuks)</span>
                     <span className="font-semibold text-foreground">€13,95</span>
                   </div>
                 </div>
@@ -516,6 +542,22 @@ const CheckoutPage = () => {
                     {errors.verzendwijze && (
                       <p className="text-destructive text-xs mt-1">{errors.verzendwijze.message}</p>
                     )}
+                    {deliveryMethod === "afhaalpunt" && (
+                      <div className="mt-3">
+                        <label className="block text-sm font-medium text-foreground mb-1">
+                          Naam & adres afhaalpunt
+                        </label>
+                        <input
+                          type="text"
+                          {...register("afhaalpunt_naam_adres")}
+                          placeholder="bv. Bpost – Kerkstraat 12, 2000 Antwerpen"
+                          className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                        />
+                        {errors.afhaalpunt_naam_adres && (
+                          <p className="text-destructive text-xs mt-1">{errors.afhaalpunt_naam_adres.message}</p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -595,6 +637,30 @@ const CheckoutPage = () => {
                       )}
                     </div>
 
+                    {/* Testpakket */}
+                    <div className="flex items-end justify-between p-4 bg-secondary rounded-lg border border-border">
+                      <div>
+                        <label className="block text-sm font-medium text-foreground mb-2">
+                          Testpakket Small-Medium-Large – per 10 stuks (€13,95)
+                        </label>
+                        <div className="flex items-center gap-2">
+                          <label className="text-xs text-muted-foreground">Aantal sets:</label>
+                          <input
+                            type="number"
+                            min="0"
+                            {...register("striphoes_testpakket_qty", { valueAsNumber: true })}
+                            className="w-20 rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                          />
+                        </div>
+                      </div>
+                      {testpakketQty > 0 && (
+                        <div className="text-right">
+                          <p className="text-xs text-muted-foreground">Subtotaal</p>
+                          <p className="font-semibold text-foreground">{formatPrice(testpakketTotal)}</p>
+                        </div>
+                      )}
+                    </div>
+
                     {/* Order Totals */}
                     {orderSubtotal > 0 && (
                       <div className="p-4 bg-background border border-border rounded-lg space-y-2">
@@ -603,7 +669,7 @@ const CheckoutPage = () => {
                           <span className="text-foreground">{formatPrice(orderSubtotal)}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-muted-foreground">Gewicht: {totalWeight} kg</span>
+                          <span className="text-muted-foreground">Verzend en verpakkingskosten</span>
                           <span className="text-foreground">{formatPrice(shippingCost)}</span>
                         </div>
                         <div className="border-t border-border pt-2 flex justify-between">
@@ -699,7 +765,7 @@ const CheckoutPage = () => {
                     <li>het totaalbedrag van je bestelling</li>
                     <li>de verzendkosten, berekend op basis van land, verzendmethode en totaal gewicht</li>
                     <li>onze betaalgegevens (IBAN + mededeling)</li>
-                    <li>een geschatte verzenddatum</li>
+                    <li>wij controleren jouw gekozen postpunt</li>
                   </ul>
                   <p className="text-muted-foreground mt-4">
                     Je bestelling wordt verzonden zodra de betaling is ontvangen.

@@ -17,11 +17,11 @@ const ProductsSection = () => {
             Ons assortiment striphoezen
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Drie formaten, één kwaliteitsnorm: archiefkwaliteit bescherming voor elke strip in uw collectie.
+            Drie formaten en een testpakket — één kwaliteitsnorm: archiefkwaliteit bescherming voor elke strip in uw collectie.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}

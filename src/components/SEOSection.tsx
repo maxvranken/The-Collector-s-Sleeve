@@ -31,7 +31,10 @@ const SEOSection = () => {
               Hoe ontstaat vergeling en hoe voorkom je het?
             </h3>
             <p>
-              Vergeling van papier is een chemisch proces dat wordt veroorzaakt door lignine – een natuurlijke stof in papier die reageert met zuurstof en UV-licht. Dit proces versnelt bij hoge luchtvochtigheid, warmte en contact met zure materialen. Eenmaal vergeeld is het proces onomkeerbaar. <strong>Zuurvrije striphoezen</strong> van premium Cast PolyPropyleen voorkomen dit door een chemisch neutrale barrière te vormen. Zo beschermt u uw strips effectief tegen <strong>vergeling</strong> en behouden ze hun oorspronkelijke uitstraling.
+              Vergeling van papier ontstaat door de afbraak van lignine – een natuurlijke houtstof die reageert met zuurstof en vooral met UV‑licht. Warmte, hoge luchtvochtigheid en contact met zure materialen versnellen dit proces aanzienlijk. Eenmaal opgetreden is vergeling in de praktijk niet volledig omkeerbaar.
+            </p>
+            <p>
+              <strong>Zuurvrije striphoezen</strong> van premium Cast PolyPropyleen helpen dit proces sterk te vertragen. Ze zijn chemisch inert, geven geen zuren af en vormen een beschermende barrière tegen lucht, vocht, stof en UV‑licht. Zo blijven uw strips langer helder van kleur en behouden ze hun oorspronkelijke uitstraling.
             </p>
 
             <h3 className="font-serif text-2xl font-semibold text-foreground !mt-10">
@@ -53,7 +56,7 @@ const SEOSection = () => {
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Small (295×230mm)</strong> – Perfect voor o.a. Suske en Wiske, Piet Pienter en Bert Bibber en Kiekeboe</li>
               <li><strong>Medium (315×240mm)</strong> – Ideaal voor de standard soft covers Dupuis, Lombard en HC Lombard</li>
-              <li><strong>Large (330×258mm)</strong> – Ontworpen voor de Hardcovers Casterman</li>
+              <li><strong>Large (330×260mm)</strong> – Ontworpen voor o.a. Hardcovers Casterman '40 – '50</li>
             </ul>
 
             <h3 className="font-serif text-2xl font-semibold text-foreground !mt-10">

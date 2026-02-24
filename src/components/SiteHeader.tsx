@@ -22,6 +22,9 @@ const SiteHeader = () => {
           <a href="/#advice" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Advies
           </a>
+          <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Contact
+          </Link>
           <Link
             to="/striphoezen"
             className="inline-flex items-center px-5 py-2 bg-gradient-gold text-accent-foreground font-semibold rounded-lg text-sm hover:opacity-90 transition-opacity"
@@ -67,6 +70,9 @@ const SiteHeader = () => {
           <a href="/#advice" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground">
             Advies
           </a>
+          <Link to="/contact" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground">
+            Contact
+          </Link>
           <Link
             to="/striphoezen"
             onClick={() => setMobileOpen(false)}

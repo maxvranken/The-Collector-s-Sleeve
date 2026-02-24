@@ -36,7 +36,7 @@ const AdviceDetailPage = () => {
         <div className="container py-8">
           <Breadcrumbs items={[
             { label: "Home", href: "/" },
-            { label: "Advies", href: "/" },
+            { label: "Advies", href: "/#advice" },
             { label: article.title }
           ]} />
 
@@ -56,7 +56,7 @@ const AdviceDetailPage = () => {
             <div className="mt-12 pt-8 border-t border-border">
               <h3 className="font-serif text-xl font-semibold text-foreground mb-4">Gerelateerd advies</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {adviceArticles.filter(a => a.slug !== slug).slice(0, 4).map(a => (
+                {adviceArticles.filter(a => a.slug !== slug).map(a => (
                   <Link
                     key={a.slug}
                     to={`/advies/${a.slug}`}

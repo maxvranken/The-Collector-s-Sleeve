@@ -22,7 +22,7 @@ export const adviceArticles: AdviceArticle[] = [
     metaTitle: "UV-licht bescherming voor stripverzamelaars",
     metaDescription: "Hoe UV-straling papier beschadigt en hoe je je strips beschermt tegen vergelingsdamage.",
     intro: "UV‑straling is één van de grootste versnellers van vergeling.",
-    content: "UV-straling breekt chemische bindingen in papier af en veroorzaakt verkleuring. Bewaar strips nooit in direct zonlicht. Ook daglicht en TL-lampen bevatten UV. Kies voor UV-beschermende hoezen en bewaar je collectie in donkere, gesloten kasten. Licht buiten sluiten is een van de meest effectieve beschermingsmaatregelen."
+    content: "UV‑straling breekt chemische bindingen in papier af en versnelt verkleuring. Bewaar strips daarom nooit in direct zonlicht. Ook daglicht, TL‑lampen en sommige LED‑lampen bevatten UV‑licht dat op lange termijn schade veroorzaakt. Premium CPP‑hoezen bieden een gedeeltelijke UV‑filtering en helpen zo de blootstelling te verminderen, maar ze kunnen UV‑licht niet volledig blokkeren. Bewaar je collectie daarom bij voorkeur in donkere, gesloten kasten. Licht buiten houden blijft één van de meest effectieve maatregelen om verkleuring te vertragen."
   },
   {
     slug: "beperk-blootstelling-zuurstof",
@@ -62,7 +62,7 @@ export const adviceArticles: AdviceArticle[] = [
     metaTitle: "Correcte positie en druk voor stripbewaring",
     metaDescription: "Hoe je strips opbergt zonder mechanische beschadiging.",
     intro: "Te veel druk kan microbeschadigingen veroorzaken die sneller verkleuren.",
-    content: "Bewaar strips altijd rechtop, niet gestapeld. De ruggen van strips kunnen breken onder gewicht. Te strakke druk kan het papier beschadigen en verkleuring versnellen. Zorg dat strips rechtop staan met lichte ondersteuning, niet geperst. Gebruik dividers om strips rechtop te houden zonder dat ze tegen elkaar drukken."
+    content: "Bewaar strips altijd rechtop, niet gestapeld. De ruggen van strips kunnen breken onder gewicht. Te strakke druk kan het papier beschadigen en verkleuring versnellen. Zorg dat strips rechtop staan met lichte ondersteuning, niet geperst. Gebruik tussenstukken om strips rechtop te houden zonder dat ze tegen elkaar drukken."
   },
   {
     slug: "omgevingsfactoren-vergeten",

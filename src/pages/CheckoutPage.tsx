@@ -273,26 +273,23 @@ const CheckoutPage = () => {
     setSubmitting(true);
     setSubmitError(null);
 
-    const csvContent = buildOrderCSV(data);
-    const csvBlob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
-    const csvFile = new File([csvBlob], `bestelling_${data.achternaam}_${new Date().toISOString().slice(0, 10)}.csv`, { type: "text/csv" });
-
-    const formData = new FormData();
-    formData.append("voornaam", data.voornaam);
-    formData.append("achternaam", data.achternaam);
-    formData.append("email", data.email);
-    formData.append("telefoonnummer", data.telefoonnummer || "–");
-    formData.append("adres", `${data.straat}, ${data.postcode} ${data.gemeente}, ${data.land}`);
-    formData.append("bestelling", buildOrderText(data));
-    formData.append("_subject", "Nieuwe bestelling via Striphœzen Bestelformulier");
-    formData.append("_replyto", data.email);
-    formData.append("attachment", csvFile);
+    const payload = {
+      voornaam: data.voornaam,
+      achternaam: data.achternaam,
+      email: data.email,
+      telefoonnummer: data.telefoonnummer || "–",
+      adres: `${data.straat}, ${data.postcode} ${data.gemeente}, ${data.land}`,
+      bestelling: buildOrderText(data),
+      csv_access_import: buildOrderCSV(data),
+      _subject: "Nieuwe bestelling via Striphœzen Bestelformulier",
+      _replyto: data.email,
+    };
 
     try {
       const res = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {

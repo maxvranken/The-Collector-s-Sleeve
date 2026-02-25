@@ -9,7 +9,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { useCart, parsePrice } from "@/contexts/CartContext";
 import { CheckCircle, Loader2 } from "lucide-react";
 
-const FORMSPREE_FORM_ID = "xkovvlwb";
+const FORMSPREE_FORM_ID = "mykdogvl";
 
 const schema = z.object({
   voornaam: z.string().min(2, "Vul je voornaam in"),

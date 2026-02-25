@@ -194,16 +194,16 @@ const CheckoutPage = () => {
     lines.push("");
     lines.push(`BESTELLING`);
     if (data.striphoes_small_qty > 0) {
-      lines.push(`${data.striphoes_small_qty}× Striphoes Small (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_small_qty * SHIPPING_PARAMS.pricePerSet)}`);
+      lines.push(`${data.striphoes_small_qty}× Striphoes Small (${formatPrice(SHIPPING_PARAMS.pricePerSet)}) = ${formatPrice(data.striphoes_small_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     if (data.striphoes_medium_qty > 0) {
-      lines.push(`${data.striphoes_medium_qty}× Striphoes Medium (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_medium_qty * SHIPPING_PARAMS.pricePerSet)}`);
+      lines.push(`${data.striphoes_medium_qty}× Striphoes Medium (${formatPrice(SHIPPING_PARAMS.pricePerSet)}) = ${formatPrice(data.striphoes_medium_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     if (data.striphoes_large_qty > 0) {
-      lines.push(`${data.striphoes_large_qty}× Striphoes Large (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_large_qty * SHIPPING_PARAMS.pricePerSet)}`);
+      lines.push(`${data.striphoes_large_qty}× Striphoes Large (${formatPrice(SHIPPING_PARAMS.pricePerSet)}) = ${formatPrice(data.striphoes_large_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     if (data.striphoes_testpakket_qty > 0) {
-      lines.push(`${data.striphoes_testpakket_qty}× Testpakket Small-Medium-Large (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_testpakket_qty * SHIPPING_PARAMS.pricePerSet)}`);
+      lines.push(`${data.striphoes_testpakket_qty}× Testpakket Small-Medium-Large (${formatPrice(SHIPPING_PARAMS.pricePerSet)}) = ${formatPrice(data.striphoes_testpakket_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     lines.push("");
     lines.push(`VERZENDING`);
@@ -212,12 +212,12 @@ const CheckoutPage = () => {
       lines.push(`Afhaalpunt: ${data.afhaalpunt_naam_adres}`);
     }
     lines.push(`Gewicht: ${weight} kg`);
-    lines.push(`Verzendkosten: €${formatPrice(shipping)}`);
+    lines.push(`Verzendkosten: ${formatPrice(shipping)}`);
     lines.push("");
     lines.push(`─`.repeat(40));
-    lines.push(`Subtotaal producten: €${formatPrice((data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty + data.striphoes_testpakket_qty) * SHIPPING_PARAMS.pricePerSet)}`);
-    lines.push(`Verzendkosten: €${formatPrice(shipping)}`);
-    lines.push(`Totaal: €${formatPrice(total)}`);
+    lines.push(`Subtotaal producten: ${formatPrice((data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty + data.striphoes_testpakket_qty) * SHIPPING_PARAMS.pricePerSet)}`);
+    lines.push(`Verzendkosten: ${formatPrice(shipping)}`);
+    lines.push(`Totaal: ${formatPrice(total)}`);
     lines.push("");
     if (data.opmerkingen) {
       lines.push(`OPMERKINGEN`);

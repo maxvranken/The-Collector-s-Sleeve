@@ -8,8 +8,9 @@ import productBack from "@/assets/product-back.jpg";
 import productDetail1 from "@/assets/product-detail-1.jpg";
 import productDetail2 from "@/assets/product-detail-2.jpg";
 import productDetail3 from "@/assets/product-detail-3.jpg";
-import { motion } from "framer-motion";
-import { Check, ShoppingCart, Minus, Plus } from "lucide-react";
+import productDetail4 from "@/assets/product-detail-4.jpg";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ShoppingCart, Minus, Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
@@ -25,6 +26,13 @@ const ProductDetailPage = () => {
   const product = products.find(p => p.slug === slug);
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+
+  const allImages = [productFront, productBack, productDetail1, productDetail2, productDetail3, productDetail4];
+  const imageAlts = ["Voorkant", "Achterkant", "Detail flap", "Insteken", "Hoek detail", "Hoek detail 2"];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const prev = () => setActiveIndex(i => (i - 1 + allImages.length) % allImages.length);
+  const next = () => setActiveIndex(i => (i + 1) % allImages.length);
 
   // Scroll to top when product changes
   useEffect(() => {
@@ -97,14 +105,58 @@ const ProductDetailPage = () => {
               animate={{ opacity: 1 }}
               className="space-y-3"
             >
-              <div className="bg-secondary rounded-xl overflow-hidden aspect-[3/4]">
-                <img src={productFront} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
+              {/* Main image with carousel arrows */}
+              <div className="relative bg-secondary rounded-xl overflow-hidden aspect-[3/4] group">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeIndex}
+                    src={allImages[activeIndex]}
+                    alt={`${product.name} - ${imageAlts[activeIndex]}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.25 }}
+                  />
+                </AnimatePresence>
+                <button
+                  onClick={prev}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border shadow opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+                  aria-label="Vorige"
+                >
+                  <ChevronLeft className="w-5 h-5 text-foreground" />
+                </button>
+                <button
+                  onClick={next}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border shadow opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+                  aria-label="Volgende"
+                >
+                  <ChevronRight className="w-5 h-5 text-foreground" />
+                </button>
+                {/* Dot indicators */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                  {allImages.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveIndex(i)}
+                      className={`w-1.5 h-1.5 rounded-full transition-all ${i === activeIndex ? "bg-accent w-4" : "bg-background/60"}`}
+                      aria-label={`Afbeelding ${i + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
-              <div className="grid grid-cols-4 gap-2">
-                {[productBack, productDetail1, productDetail2, productDetail3].map((img, i) => (
-                  <div key={i} className="bg-secondary rounded-lg overflow-hidden aspect-square">
-                    <img src={img} alt={`${product.name} detail ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
-                  </div>
+
+              {/* Thumbnails */}
+              <div className="grid grid-cols-6 gap-2">
+                {allImages.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIndex(i)}
+                    className={`rounded-lg overflow-hidden aspect-square ring-2 transition-all ${i === activeIndex ? "ring-accent" : "ring-transparent hover:ring-border"}`}
+                  >
+                    <img src={img} alt={`${product.name} ${imageAlts[i]}`} className="w-full h-full object-cover" loading="lazy" />
+                  </button>
                 ))}
               </div>
             </motion.div>

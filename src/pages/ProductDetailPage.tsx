@@ -3,8 +3,6 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { products } from "@/data/products";
-import productFront from "@/assets/product-front.jpg";
-import productBack from "@/assets/product-back.jpg";
 import productDetail1 from "@/assets/product-detail-1.jpg";
 import productDetail2 from "@/assets/product-detail-2.jpg";
 import productDetail3 from "@/assets/product-detail-3.jpg";
@@ -27,8 +25,8 @@ const ProductDetailPage = () => {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
 
-  const allImages = [productFront, productBack, productDetail1, productDetail2, productDetail3, productDetail4];
-  const imageAlts = ["Voorkant", "Achterkant", "Detail flap", "Insteken", "Hoek detail", "Hoek detail 2"];
+  const allImages = [productDetail1, productDetail2, productDetail3, productDetail4];
+  const imageAlts = ["Detail flap", "Insteken", "Hoek detail", "Hoek detail 2"];
   const [activeIndex, setActiveIndex] = useState(0);
 
   const prev = () => setActiveIndex(i => (i - 1 + allImages.length) % allImages.length);
@@ -57,7 +55,7 @@ const ProductDetailPage = () => {
     "@type": "Product",
     "name": product.name,
     "description": product.description,
-    "image": productFront,
+    "image": productDetail1,
     "offers": {
       "@type": "Offer",
       "price": product.price.replace("€", "").replace(",", "."),

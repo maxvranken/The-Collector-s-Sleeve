@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag, Star } from "lucide-react";
+import { Star } from "lucide-react";
+import LemiusIcon from "@/components/LemiusIcon";
 
 const SiteFooter = () => {
   return (
@@ -23,7 +24,7 @@ const SiteFooter = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <ShoppingBag className="w-5 h-5 text-gold" />
+              <LemiusIcon className="w-5 h-5 text-gold" />
               <span className="font-serif text-lg font-bold">The Collector's Sleeve</span>
             </Link>
             <p className="text-sm text-primary-foreground/70 leading-relaxed">

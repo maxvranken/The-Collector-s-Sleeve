@@ -6,6 +6,12 @@
       "runtimeExecutable": "/Users/maxvranken/.nvm/versions/node/v24.13.1/bin/node",
       "runtimeArgs": ["/Users/maxvranken/The-Collector-s-Sleeve/node_modules/.bin/vite", "--port", "5173"],
       "port": 5173
+    },
+    {
+      "name": "leon-print-lab",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "/Users/maxvranken/Leon-s-Dad-Print-Lab"],
+      "port": 8765
     }
   ]
 }

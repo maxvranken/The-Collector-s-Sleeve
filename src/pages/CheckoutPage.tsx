@@ -227,26 +227,72 @@ const CheckoutPage = () => {
     return lines.join("\n");
   };
 
+  const buildOrderCSV = (data: FormValues) => {
+    const weight = calculateWeight(data.striphoes_small_qty, data.striphoes_medium_qty, data.striphoes_large_qty + data.striphoes_testpakket_qty);
+    const shipping = calculateShippingCost(weight, data.land, data.verzendwijze);
+    const subtotaal = (data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty + data.striphoes_testpakket_qty) * SHIPPING_PARAMS.pricePerSet;
+    const totaal = subtotaal + shipping;
+    const datum = new Date().toLocaleDateString("nl-BE");
+
+    const escape = (val: string | number) => `"${String(val).replace(/"/g, '""')}"`;
+
+    const headers = [
+      "Datum", "Voornaam", "Achternaam", "Email", "Telefoon",
+      "Straat", "Postcode", "Gemeente", "Land",
+      "Small_Qty", "Medium_Qty", "Large_Qty", "Testpakket_Qty",
+      "Subtotaal", "Verzendkosten", "Totaal",
+      "Verzendwijze", "Afhaalpunt", "Opmerkingen",
+    ];
+
+    const row = [
+      datum,
+      data.voornaam,
+      data.achternaam,
+      data.email,
+      data.telefoonnummer || "",
+      data.straat,
+      data.postcode,
+      data.gemeente,
+      data.land,
+      data.striphoes_small_qty,
+      data.striphoes_medium_qty,
+      data.striphoes_large_qty,
+      data.striphoes_testpakket_qty,
+      subtotaal.toFixed(2).replace(".", ","),
+      shipping.toFixed(2).replace(".", ","),
+      totaal.toFixed(2).replace(".", ","),
+      data.verzendwijze === "afhaalpunt" ? "Afhaalpunt" : "Thuis bezorgd",
+      data.afhaalpunt_naam_adres || "",
+      data.opmerkingen || "",
+    ];
+
+    return headers.map(escape).join(";") + "\r\n" + row.map(escape).join(";");
+  };
+
   const onSubmit = async (data: FormValues) => {
     setSubmitting(true);
     setSubmitError(null);
 
-    const payload = {
-      voornaam: data.voornaam,
-      achternaam: data.achternaam,
-      email: data.email,
-      telefoonnummer: data.telefoonnummer || "–",
-      adres: `${data.straat}, ${data.postcode} ${data.gemeente}, ${data.land}`,
-      bestelling: buildOrderText(data),
-      _subject: "Nieuwe bestelling via Striphœzen Bestelformulier",
-      _replyto: data.email,
-    };
+    const csvContent = buildOrderCSV(data);
+    const csvBlob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+    const csvFile = new File([csvBlob], `bestelling_${data.achternaam}_${new Date().toISOString().slice(0, 10)}.csv`, { type: "text/csv" });
+
+    const formData = new FormData();
+    formData.append("voornaam", data.voornaam);
+    formData.append("achternaam", data.achternaam);
+    formData.append("email", data.email);
+    formData.append("telefoonnummer", data.telefoonnummer || "–");
+    formData.append("adres", `${data.straat}, ${data.postcode} ${data.gemeente}, ${data.land}`);
+    formData.append("bestelling", buildOrderText(data));
+    formData.append("_subject", "Nieuwe bestelling via Striphœzen Bestelformulier");
+    formData.append("_replyto", data.email);
+    formData.append("attachment", csvFile);
 
     try {
       const res = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(payload),
+        headers: { Accept: "application/json" },
+        body: formData,
       });
 
       if (res.ok) {

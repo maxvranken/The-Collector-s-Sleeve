@@ -17,6 +17,7 @@ const schema = z.object({
   email: z.string().email("Ongeldig e-mailadres"),
   telefoonnummer: z.string().optional(),
   straat: z.string().min(2, "Vul je straat en huisnummer in"),
+  bus: z.string().optional(),
   postcode: z.string().min(4, "Vul je postcode in"),
   gemeente: z.string().min(2, "Vul je gemeente in"),
   land: z.enum(["België", "Nederland"], { message: "Kies je land" }),
@@ -50,7 +51,7 @@ const formatPrice = (value: number) =>
 
 // Shipping calculation parameters
 const SHIPPING_PARAMS = {
-  pricePerSet: 13.95,
+  pricePerSet: 18.95,
   weightSmall: 0.41,
   weightMedium: 0.49,
   weightLarge: 0.5,
@@ -162,7 +163,7 @@ const CheckoutPage = () => {
   const country = watch("land");
   const deliveryMethod = watch("verzendwijze");
 
-  const PRICE_PER_10 = 13.95;
+  const PRICE_PER_10 = 18.95;
   const smallTotal = smallQty * PRICE_PER_10;
   const mediumTotal = mediumQty * PRICE_PER_10;
   const largeTotal = largeQty * PRICE_PER_10;
@@ -188,7 +189,7 @@ const CheckoutPage = () => {
     }
     lines.push("");
     lines.push(`ADRES`);
-    lines.push(`${data.straat}`);
+    lines.push(`${data.straat}${data.bus ? ` bus ${data.bus}` : ""}`);
     lines.push(`${data.postcode} ${data.gemeente}`);
     lines.push(`${data.land}`);
     lines.push("");
@@ -278,7 +279,7 @@ const CheckoutPage = () => {
       achternaam: data.achternaam,
       email: data.email,
       telefoonnummer: data.telefoonnummer || "–",
-      adres: `${data.straat}, ${data.postcode} ${data.gemeente}, ${data.land}`,
+      adres: `${data.straat}${data.bus ? ` bus ${data.bus}` : ""}, ${data.postcode} ${data.gemeente}, ${data.land}`,
       bestelling: buildOrderText(data),
       csv_access_import: buildOrderCSV(data),
       _subject: "Nieuwe bestelling via Striphœzen Bestelformulier",
@@ -367,19 +368,19 @@ const CheckoutPage = () => {
                 <div className="space-y-2 text-muted-foreground">
                   <div className="flex justify-between">
                     <span>Striphoes Small (10 stuks)</span>
-                    <span className="font-semibold text-foreground">€13,95</span>
+                    <span className="font-semibold text-foreground">€18,95</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Striphoes Medium (10 stuks)</span>
-                    <span className="font-semibold text-foreground">€13,95</span>
+                    <span className="font-semibold text-foreground">€18,95</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Striphoes Large (10 stuks)</span>
-                    <span className="font-semibold text-foreground">€13,95</span>
+                    <span className="font-semibold text-foreground">€18,95</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Testpakket Small-Medium-Large (10 stuks)</span>
-                    <span className="font-semibold text-foreground">€13,95</span>
+                    <span className="font-semibold text-foreground">€18,95</span>
                   </div>
                 </div>
               </div>
@@ -489,19 +490,36 @@ const CheckoutPage = () => {
                 <div>
                   <h3 className="font-serif font-semibold text-foreground mb-4">Adres</h3>
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-foreground mb-1">
-                      Straat + huisnummer
-                    </label>
-                    <input
-                      type="text"
-                      autoComplete="street-address"
-                      {...register("straat")}
-                      className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                      placeholder="Straatnaam 123"
-                    />
-                    {errors.straat && (
-                      <p className="text-destructive text-xs mt-1">{errors.straat.message}</p>
-                    )}
+                    <div className="flex gap-3">
+                      <div className="flex-1">
+                        <label className="block text-sm font-medium text-foreground mb-1">
+                          Straat + huisnummer
+                        </label>
+                        <input
+                          type="text"
+                          autoComplete="street-address"
+                          {...register("straat")}
+                          className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                          placeholder="Straatnaam 123"
+                        />
+                        {errors.straat && (
+                          <p className="text-destructive text-xs mt-1">{errors.straat.message}</p>
+                        )}
+                      </div>
+                      {deliveryMethod === "adres" && (
+                        <div className="w-28">
+                          <label className="block text-sm font-medium text-foreground mb-1">
+                            Bus
+                          </label>
+                          <input
+                            type="text"
+                            {...register("bus")}
+                            className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                            placeholder="bv. 2A"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -612,7 +630,7 @@ const CheckoutPage = () => {
                     <div className="flex items-end justify-between p-4 bg-secondary rounded-lg border border-border">
                       <div>
                         <label className="block text-sm font-medium text-foreground mb-2">
-                          Striphoes Small – per 10 stuks (€13,95)
+                          Striphoes Small – per 10 stuks (€18,95)
                         </label>
                         <div className="flex items-center gap-2">
                           <label className="text-xs text-muted-foreground">Aantal sets:</label>
@@ -636,7 +654,7 @@ const CheckoutPage = () => {
                     <div className="flex items-end justify-between p-4 bg-secondary rounded-lg border border-border">
                       <div>
                         <label className="block text-sm font-medium text-foreground mb-2">
-                          Striphoes Medium – per 10 stuks (€13,95)
+                          Striphoes Medium – per 10 stuks (€18,95)
                         </label>
                         <div className="flex items-center gap-2">
                           <label className="text-xs text-muted-foreground">Aantal sets:</label>
@@ -660,7 +678,7 @@ const CheckoutPage = () => {
                     <div className="flex items-end justify-between p-4 bg-secondary rounded-lg border border-border">
                       <div>
                         <label className="block text-sm font-medium text-foreground mb-2">
-                          Striphoes Large – per 10 stuks (€13,95)
+                          Striphoes Large – per 10 stuks (€18,95)
                         </label>
                         <div className="flex items-center gap-2">
                           <label className="text-xs text-muted-foreground">Aantal sets:</label>
@@ -684,7 +702,7 @@ const CheckoutPage = () => {
                     <div className="flex items-end justify-between p-4 bg-secondary rounded-lg border border-border">
                       <div>
                         <label className="block text-sm font-medium text-foreground mb-2">
-                          Testpakket Small-Medium-Large – per 10 stuks (€13,95)
+                          Testpakket Small-Medium-Large – per 10 stuks (€18,95)
                         </label>
                         <div className="flex items-center gap-2">
                           <label className="text-xs text-muted-foreground">Aantal sets:</label>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import LemiusIcon from "@/components/LemiusIcon";
@@ -34,7 +34,7 @@ const SiteHeader = () => {
           </Link>
           {/* Cart icon */}
           <Link to="/winkelmandje" className="relative text-muted-foreground hover:text-foreground transition-colors" aria-label="Winkelmandje">
-            <LemiusIcon className="w-5 h-5" />
+            <ShoppingCart className="w-5 h-5" />
             {totalItems > 0 && (
               <span className="absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center bg-accent text-accent-foreground text-[10px] font-bold rounded-full">
                 {totalItems > 9 ? "9+" : totalItems}
@@ -46,7 +46,7 @@ const SiteHeader = () => {
         <div className="flex items-center gap-3 md:hidden">
           {/* Mobile cart icon */}
           <Link to="/winkelmandje" className="relative text-foreground" aria-label="Winkelmandje">
-            <LemiusIcon className="w-5 h-5" />
+            <ShoppingCart className="w-5 h-5" />
             {totalItems > 0 && (
               <span className="absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center bg-accent text-accent-foreground text-[10px] font-bold rounded-full">
                 {totalItems > 9 ? "9+" : totalItems}

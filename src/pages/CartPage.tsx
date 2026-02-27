@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { useCart, parsePrice } from "@/contexts/CartContext";
-import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
+import LemiusIcon from "@/components/LemiusIcon";
 
 const CartPage = () => {
   const { items, totalPrice, removeFromCart, updateQuantity } = useCart();
@@ -16,7 +17,7 @@ const CartPage = () => {
         <SiteHeader />
         <main className="bg-background min-h-[60vh]">
           <div className="container py-20 text-center">
-            <ShoppingBag className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
+            <LemiusIcon className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
             <h1 className="font-serif text-3xl font-bold text-foreground mb-4">
               Je winkelmandje is leeg
             </h1>

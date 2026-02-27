@@ -9,7 +9,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { useCart, parsePrice } from "@/contexts/CartContext";
 import { CheckCircle, Loader2 } from "lucide-react";
 
-const FORMSPREE_FORM_ID = "xkovvlwb";
+const FORMSPREE_FORM_ID = "mykdogvl";
 
 const schema = z.object({
   voornaam: z.string().min(2, "Vul je voornaam in"),
@@ -195,16 +195,16 @@ const CheckoutPage = () => {
     lines.push("");
     lines.push(`BESTELLING`);
     if (data.striphoes_small_qty > 0) {
-      lines.push(`${data.striphoes_small_qty}× Striphoes Small (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_small_qty * SHIPPING_PARAMS.pricePerSet)}`);
+      lines.push(`${data.striphoes_small_qty}× Striphoes Small (${formatPrice(SHIPPING_PARAMS.pricePerSet)}) = ${formatPrice(data.striphoes_small_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     if (data.striphoes_medium_qty > 0) {
-      lines.push(`${data.striphoes_medium_qty}× Striphoes Medium (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_medium_qty * SHIPPING_PARAMS.pricePerSet)}`);
+      lines.push(`${data.striphoes_medium_qty}× Striphoes Medium (${formatPrice(SHIPPING_PARAMS.pricePerSet)}) = ${formatPrice(data.striphoes_medium_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     if (data.striphoes_large_qty > 0) {
-      lines.push(`${data.striphoes_large_qty}× Striphoes Large (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_large_qty * SHIPPING_PARAMS.pricePerSet)}`);
+      lines.push(`${data.striphoes_large_qty}× Striphoes Large (${formatPrice(SHIPPING_PARAMS.pricePerSet)}) = ${formatPrice(data.striphoes_large_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     if (data.striphoes_testpakket_qty > 0) {
-      lines.push(`${data.striphoes_testpakket_qty}× Testpakket Small-Medium-Large (€${SHIPPING_PARAMS.pricePerSet}) = €${formatPrice(data.striphoes_testpakket_qty * SHIPPING_PARAMS.pricePerSet)}`);
+      lines.push(`${data.striphoes_testpakket_qty}× Testpakket Small-Medium-Large (${formatPrice(SHIPPING_PARAMS.pricePerSet)}) = ${formatPrice(data.striphoes_testpakket_qty * SHIPPING_PARAMS.pricePerSet)}`);
     }
     lines.push("");
     lines.push(`VERZENDING`);
@@ -213,12 +213,12 @@ const CheckoutPage = () => {
       lines.push(`Afhaalpunt: ${data.afhaalpunt_naam_adres}`);
     }
     lines.push(`Gewicht: ${weight} kg`);
-    lines.push(`Verzendkosten: €${formatPrice(shipping)}`);
+    lines.push(`Verzendkosten: ${formatPrice(shipping)}`);
     lines.push("");
     lines.push(`─`.repeat(40));
-    lines.push(`Subtotaal producten: €${formatPrice((data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty + data.striphoes_testpakket_qty) * SHIPPING_PARAMS.pricePerSet)}`);
-    lines.push(`Verzendkosten: €${formatPrice(shipping)}`);
-    lines.push(`Totaal: €${formatPrice(total)}`);
+    lines.push(`Subtotaal producten: ${formatPrice((data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty + data.striphoes_testpakket_qty) * SHIPPING_PARAMS.pricePerSet)}`);
+    lines.push(`Verzendkosten: ${formatPrice(shipping)}`);
+    lines.push(`Totaal: ${formatPrice(total)}`);
     lines.push("");
     if (data.opmerkingen) {
       lines.push(`OPMERKINGEN`);
@@ -226,6 +226,48 @@ const CheckoutPage = () => {
       lines.push("");
     }
     return lines.join("\n");
+  };
+
+  const buildOrderCSV = (data: FormValues) => {
+    const weight = calculateWeight(data.striphoes_small_qty, data.striphoes_medium_qty, data.striphoes_large_qty + data.striphoes_testpakket_qty);
+    const shipping = calculateShippingCost(weight, data.land, data.verzendwijze);
+    const subtotaal = (data.striphoes_small_qty + data.striphoes_medium_qty + data.striphoes_large_qty + data.striphoes_testpakket_qty) * SHIPPING_PARAMS.pricePerSet;
+    const totaal = subtotaal + shipping;
+    const datum = new Date().toLocaleDateString("nl-BE");
+
+    const escape = (val: string | number) => `"${String(val).replace(/"/g, '""')}"`;
+
+    const headers = [
+      "Datum", "Voornaam", "Achternaam", "Email", "Telefoon",
+      "Straat", "Postcode", "Gemeente", "Land",
+      "Small_Qty", "Medium_Qty", "Large_Qty", "Testpakket_Qty",
+      "Subtotaal", "Verzendkosten", "Totaal",
+      "Verzendwijze", "Afhaalpunt", "Opmerkingen",
+    ];
+
+    const row = [
+      datum,
+      data.voornaam,
+      data.achternaam,
+      data.email,
+      data.telefoonnummer || "",
+      data.straat,
+      data.postcode,
+      data.gemeente,
+      data.land,
+      data.striphoes_small_qty,
+      data.striphoes_medium_qty,
+      data.striphoes_large_qty,
+      data.striphoes_testpakket_qty,
+      subtotaal.toFixed(2).replace(".", ","),
+      shipping.toFixed(2).replace(".", ","),
+      totaal.toFixed(2).replace(".", ","),
+      data.verzendwijze === "afhaalpunt" ? "Afhaalpunt" : "Thuis bezorgd",
+      data.afhaalpunt_naam_adres || "",
+      data.opmerkingen || "",
+    ];
+
+    return headers.map(escape).join(";") + "\r\n" + row.map(escape).join(";");
   };
 
   const onSubmit = async (data: FormValues) => {
@@ -239,6 +281,7 @@ const CheckoutPage = () => {
       telefoonnummer: data.telefoonnummer || "–",
       adres: `${data.straat}${data.bus ? ` bus ${data.bus}` : ""}, ${data.postcode} ${data.gemeente}, ${data.land}`,
       bestelling: buildOrderText(data),
+      csv_access_import: buildOrderCSV(data),
       _subject: "Nieuwe bestelling via Striphœzen Bestelformulier",
       _replyto: data.email,
     };

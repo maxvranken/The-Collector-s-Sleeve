@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag, Menu, X, ShoppingCart } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
+import LemiusIcon from "@/components/LemiusIcon";
 
 const SiteHeader = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -11,7 +12,7 @@ const SiteHeader = () => {
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2">
-          <ShoppingBag className="w-6 h-6 text-accent" />
+          <LemiusIcon className="w-6 h-6 text-accent" />
           <span className="font-serif text-xl font-bold text-foreground">The Collector's Sleeve</span>
         </Link>
 

@@ -8,7 +8,8 @@ import productDetail2 from "@/assets/product-detail-2.jpg";
 import productDetail3 from "@/assets/product-detail-3.jpg";
 import productDetail4 from "@/assets/product-detail-4.jpg";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ShoppingCart, Minus, Plus, ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, Minus, Plus, ChevronLeft, ChevronRight } from "lucide-react";
+import LemiusIcon from "@/components/LemiusIcon";
 import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
@@ -212,7 +213,7 @@ const ProductDetailPage = () => {
                   onClick={handleAddToCart}
                   className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-gold text-accent-foreground font-semibold rounded-lg shadow-gold hover:opacity-90 transition-opacity text-lg"
                 >
-                  <ShoppingCart className="w-5 h-5" />
+                  <LemiusIcon className="w-5 h-5" />
                   Voeg toe aan winkelmandje
                 </button>
               </div>

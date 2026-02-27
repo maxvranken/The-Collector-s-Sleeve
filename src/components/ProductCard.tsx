@@ -15,7 +15,7 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.15 }}
-      className="group bg-card rounded-xl border border-border overflow-hidden shadow-premium hover:shadow-lg transition-shadow duration-300"
+      className="group bg-card rounded-xl border border-border overflow-hidden shadow-premium hover:shadow-lg transition-shadow duration-300 flex flex-col"
     >
       <div className="aspect-square bg-secondary overflow-hidden">
         <img
@@ -24,14 +24,14 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
       </div>
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1">
         <h3 className="font-serif text-xl font-semibold text-foreground mb-2">{product.name}</h3>
         <div className="space-y-1 text-sm text-muted-foreground mb-4">
           <p>Afmetingen: {product.dimensions}</p>
           <p>Geschikt voor: {product.suitableFor}</p>
           <p>Dikte: {product.thickness}</p>
         </div>
-        <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{product.description}</p>
+        <p className="text-sm text-muted-foreground mb-5 leading-relaxed flex-1">{product.description}</p>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-foreground">{product.price}<span className="text-sm font-normal text-muted-foreground"> / 10 st.</span></span>
           <Link
